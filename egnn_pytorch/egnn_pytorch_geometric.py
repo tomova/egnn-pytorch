@@ -136,7 +136,7 @@ class EGNN_Sparse(MessagePassing):
         self.update_feats = update_feats
         self.coor_weights_clamp_value = None
 
-        self.edge_input_dim = (fourier_features * 2) + edge_attr_dim + (feats_dim * 2)
+        self.edge_input_dim = (fourier_features * 2) + edge_attr_dim + 1 + (feats_dim * 2)
         self.dropout = nn.Dropout(dropout) if dropout > 0 else nn.Identity()
 
         # EDGES
