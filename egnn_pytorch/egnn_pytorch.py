@@ -222,6 +222,7 @@ class EGNN(nn.Module):
             nn.init.normal_(module.weight, std = self.init_eps)
 
     def forward(self, feats, coors, edges = None, mask = None, adj_mat = None):
+        feats = feats.squeeze(2) # Remove the third dimension
         print("EGNN Initial feats shape:", feats.shape)
         print("EGNN Initial coors shape:", coors.shape)
         print("Expected feature dimension (dim):", self.node_norm.normalized_shape[0])
