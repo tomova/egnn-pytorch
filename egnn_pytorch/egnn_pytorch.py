@@ -223,9 +223,9 @@ class EGNN(nn.Module):
 
     def forward(self, feats, coors, edges = None, mask = None, adj_mat = None):
         feats = feats.squeeze(2) # Remove the third dimension
-        print("EGNN Initial feats shape:", feats.shape)
-        print("EGNN Initial coors shape:", coors.shape)
-        print("Expected feature dimension (dim):", self.node_norm.normalized_shape[0])
+        #print("EGNN Initial feats shape:", feats.shape)
+        #print("EGNN Initial coors shape:", coors.shape)
+        #print("Expected feature dimension (dim):", self.node_norm.normalized_shape[0])
         b, n, d, device, fourier_features, num_nearest, valid_radius, only_sparse_neighbors = *feats.shape, feats.device, self.fourier_features, self.num_nearest_neighbors, self.valid_radius, self.only_sparse_neighbors
 
         if exists(mask):
