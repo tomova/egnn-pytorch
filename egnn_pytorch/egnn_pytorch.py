@@ -274,9 +274,9 @@ class EGNN(nn.Module):
         if use_nearest:
             feats_j = batched_index_select(feats, nbhd_indices, dim = 1)
         else:
-            feats_j = rearrange(feats, 'b j d -> b () j d')
+            feats_j = rearrange(feats, 'b j d m -> b () j d')
 
-        feats_i = rearrange(feats, 'b i d -> b i () d')
+        feats_i = rearrange(feats, 'b i d m -> b i () d')
         feats_i, feats_j = broadcast_tensors(feats_i, feats_j)
 
         edge_input = torch.cat((feats_i, feats_j, rel_dist), dim = -1)
