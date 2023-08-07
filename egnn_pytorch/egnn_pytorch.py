@@ -286,6 +286,7 @@ class EGNN(nn.Module):
         if exists(edges):
             edge_input = torch.cat((edge_input, edges), dim = -1)
 
+        edge_input = edge_input.view(b * n * n, -1)
         m_ij = self.edge_mlp(edge_input)
 
         if exists(self.edge_gate):
