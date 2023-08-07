@@ -222,10 +222,13 @@ class EGNN(nn.Module):
             nn.init.normal_(module.weight, std = self.init_eps)
 
     def forward(self, feats, coors, edges = None, mask = None, adj_mat = None):
+        print("feats shape 1", *feats.shape)
         feats = feats.squeeze(2) # Remove the third dimension
-        #print("EGNN Initial feats shape:", feats.shape)
-        #print("EGNN Initial coors shape:", coors.shape)
-        #print("Expected feature dimension (dim):", self.node_norm.normalized_shape[0])
+        print("feats shape 2", *feats.shape)
+        print("feats device", feats.device)
+        print("feats device", self.fourier_features)
+        print("feats num_nearest_neighbors", feats.num_nearest_neighbors)
+        print("feats valid_radius", feats.valid_radius)
         b, n, d, device, fourier_features, num_nearest, valid_radius, only_sparse_neighbors = *feats.shape, feats.device, self.fourier_features, self.num_nearest_neighbors, self.valid_radius, self.only_sparse_neighbors
 
         if exists(mask):
