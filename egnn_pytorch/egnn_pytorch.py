@@ -279,6 +279,10 @@ class EGNN(nn.Module):
         feats_i = rearrange(feats, 'b i d m -> b i () d m')
         feats_i, feats_j = broadcast_tensors(feats_i, feats_j)
 
+        print("feats_i", feats_i.shape)
+        print("feats_j", feats_j.shape)
+        print("rel_dist", rel_dist.shape)
+
         edge_input = torch.cat((feats_i, feats_j, rel_dist), dim = -1)
 
         if exists(edges):
