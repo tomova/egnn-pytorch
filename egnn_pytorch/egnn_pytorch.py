@@ -229,7 +229,7 @@ class EGNN(nn.Module):
 
         use_nearest = num_nearest > 0 or only_sparse_neighbors
 
-        rel_coors = rearrange(coors, 'b i d m -> b i () d m') - rearrange(coors, 'b j d m -> b () j d m')
+        rel_coors = rearrange(coors, 'b i d -> b i () d') - rearrange(coors, 'b j d -> b () j d')
         rel_dist = (rel_coors ** 2).sum(dim = -1, keepdim = True)
 
         i = j = n
