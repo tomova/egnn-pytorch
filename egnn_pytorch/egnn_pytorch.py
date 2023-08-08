@@ -274,19 +274,16 @@ class EGNN(nn.Module):
         if use_nearest:
             feats_j = batched_index_select(feats, nbhd_indices, dim = 1)
         else:
-            feats_j = rearrange(feats, 'b j d m -> b () j d m')
+            feats_j = rearrange(feats, 'b j d -> b () j d')
 
-        feats_i = rearrange(feats, 'b i d m -> b i () d m')
+        feats_i = rearrange(feats, 'b i d -> b i () d')
         feats_i, feats_j = broadcast_tensors(feats_i, feats_j)
-        feats_i = feats_i.sum(dim=-1)
-        feats_j = feats_j.sum(dim=-1)
 
         edge_input = torch.cat((feats_i, feats_j, rel_dist), dim = -1)
 
         if exists(edges):
             edge_input = torch.cat((edge_input, edges), dim = -1)
 
-        edge_input = edge_input.view(b * n * n, -1)
         m_ij = self.edge_mlp(edge_input)
 
         if exists(self.edge_gate):
